@@ -1,0 +1,10 @@
+CREATE TABLE q6
+AS
+SELECT
+  *
+FROM
+  lineitem
+WHERE
+  l_shipdate >= DATE '1994-01-01'
+  AND l_discount BETWEEN decimal '0.06' - decimal '0.01' AND decimal '0.06' + decimal '0.01'
+  AND l_quantity < 24
