@@ -12,6 +12,7 @@ public class SchemasConfig
     private String trinoUrl;
     private String trinoUsername = "verifier";
     private String trinoPassword;
+    private boolean forceWritePartitioning = true;
 
     @NotNull
     public String getTrinoUrl()
@@ -49,6 +50,19 @@ public class SchemasConfig
     public SchemasConfig setTrinoPassword(String trinoPassword)
     {
         this.trinoPassword = trinoPassword;
+        return this;
+    }
+
+    public boolean isForceWritePartitioning()
+    {
+        return forceWritePartitioning;
+    }
+
+    @Config("force-write-partitioning")
+    @ConfigDescription("Force write partitioning when creating partitioned tables")
+    public SchemasConfig setForceWritePartitioning(boolean forceWritePartitioning)
+    {
+        this.forceWritePartitioning = forceWritePartitioning;
         return this;
     }
 }

@@ -1,6 +1,7 @@
 package io.starburst.verifier;
 
 import com.google.common.collect.ImmutableList;
+import com.google.common.collect.ImmutableMap;
 import com.google.common.collect.ImmutableSetMultimap;
 import com.google.common.collect.SetMultimap;
 import com.google.common.util.concurrent.ListenableFuture;
@@ -30,6 +31,7 @@ import static com.google.common.util.concurrent.MoreExecutors.listeningDecorator
 import static com.google.common.util.concurrent.Uninterruptibles.awaitTerminationUninterruptibly;
 import static io.airlift.concurrent.Threads.daemonThreadsNamed;
 import static java.lang.String.format;
+import static java.lang.String.join;
 import static java.util.Objects.requireNonNull;
 import static java.util.concurrent.Executors.newFixedThreadPool;
 import static java.util.stream.Collectors.joining;
@@ -63,6 +65,7 @@ public class SchemasCommand
     }
 
     private TrinoClient trinoClient;
+    private SchemasConfig config;
 
     @Command(sortOptions = false)
     public void create(
@@ -70,9 +73,10 @@ public class SchemasCommand
             @Option(names = "--schema", required = true, order = 2) String schema,
             @Option(names = "--overwrite", order = 3) boolean overwrite,
             @Option(names = "--bucket-count", order = 4, defaultValue = "0") int bucketCount,
-            @Option(names = "--scale-factor", order = 5, defaultValue = "0.1") BigDecimal scaleFactor,
-            @Option(names = "--threads", order = 6, defaultValue = "1") int threads,
-            @Option(names = "--schema-type", required = true, order = 7, description = "Schema type. Valid values: ${COMPLETION-CANDIDATES}") SchemaType schemaType)
+            @Option(names = "--partitioned", order = 5) boolean partitioned,
+            @Option(names = "--scale-factor", order = 6, defaultValue = "0.1") BigDecimal scaleFactor,
+            @Option(names = "--threads", order = 7, defaultValue = "1") int threads,
+            @Option(names = "--schema-type", required = true, order = 8, description = "Schema type. Valid values: ${COMPLETION-CANDIDATES}") SchemaType schemaType)
     {
         init();
         schemaType.checkTrinoConfiguration(spec, trinoClient);
@@ -97,6 +101,7 @@ public class SchemasCommand
                         schema,
                         table,
                         bucketCount > 0 ? schemaType.getBucketingScheme().get(table) : Set.of(),
+                        partitioned ? schemaType.getPartitioningScheme().get(table) : Set.of(),
                         bucketCount)))
                 .map(MoreFutures::asVoid)
                 .collect(toImmutableList());
@@ -126,18 +131,55 @@ public class SchemasCommand
         }
     }
 
-    private void copyTable(String catalogFrom, String schemaFrom, String catalogTo, String schemaTo, String tableName, Set<String> bucketingScheme, int bucketCount)
+    private void copyTable(
+            String catalogFrom,
+            String schemaFrom,
+            String catalogTo,
+            String schemaTo,
+            String tableName,
+            Set<String> bucketingScheme,
+            Set<String> partitioningScheme,
+            int bucketCount)
     {
-        String bucketingColumns = bucketingScheme.stream().map(value -> "'" + value + "'").collect(joining(" , "));
+        List<String> tableColumns = getTableColumns(catalogFrom, schemaFrom, tableName);
+        String bucketing = "";
+        String partitioning = "";
         String sql = format("CREATE TABLE \"%s\".\"%s\".\"%s\" ", catalogTo, schemaTo, tableName);
-        if (!bucketingColumns.isEmpty()) {
-            sql += format("WITH (bucketed_by = ARRAY[%s], bucket_count = %s) ", bucketingColumns, bucketCount);
+        if (!bucketingScheme.isEmpty() || !partitioningScheme.isEmpty()) {
+            String withClause = "";
+            if (!bucketingScheme.isEmpty()) {
+                bucketing = bucketingScheme.stream().map(value -> "'" + value + "'").collect(joining(" , "));
+                withClause += format("bucketed_by = ARRAY[%s], bucket_count = %s", bucketing, bucketCount);
+            }
+            if (!partitioningScheme.isEmpty()) {
+                if (!withClause.isEmpty()) {
+                    withClause += ", ";
+                }
+                ImmutableList.Builder<String> tableColumnsBuilder = ImmutableList.builder();
+                tableColumns.stream()
+                        .filter(column -> !partitioningScheme.contains(column))
+                        .forEach(tableColumnsBuilder::add);
+                // partitioning columns must come last
+                partitioningScheme.forEach(tableColumnsBuilder::add);
+                tableColumns = tableColumnsBuilder.build();
+                partitioning = partitioningScheme.stream().map(value -> "'" + value + "'").collect(joining(" , "));
+                withClause += format("partitioned_by = ARRAY[%s]", partitioning);
+            }
+            sql += "WITH (" + withClause + ") ";
         }
-        sql += format("AS SELECT * FROM \"%s\".\"%s\".\"%s\"", catalogFrom, schemaFrom, tableName);
-        System.err.println(format("Creating table %s.%s.%s based on %s.%s.%s", catalogTo, schemaTo, tableName, catalogFrom, schemaFrom, tableName) +
-                (bucketingColumns.isEmpty() ? "" : format(" bucketed on %s", bucketingColumns)));
+        sql += format("AS SELECT %s FROM \"%s\".\"%s\".\"%s\"", join(", ", tableColumns), catalogFrom, schemaFrom, tableName);
+        System.err.println(format("Creating table %s.%s.%s based on %s.%s.%s", catalogTo, schemaTo, tableName, catalogFrom, schemaFrom, tableName)
+                + (bucketing.isEmpty() ? "" : format(" bucketed on %s", bucketing))
+                + (partitioning.isEmpty() ? "" : format(" partitioned on %s", partitioning)));
+        ImmutableMap.Builder<String, String> sessionProperties = ImmutableMap.builder();
+        if (!partitioningScheme.isEmpty() && config.isForceWritePartitioning()) {
+            // force write partitioning to overcome 100 partitions per writer restriction
+            // partitioning scheme is known to create ~2000 partitions for each table
+            sessionProperties.put("use_preferred_write_partitioning", "true");
+            sessionProperties.put("preferred_write_partitioning_min_number_of_partitions", "1");
+        }
         try {
-            trinoClient.executeUpdate(sql);
+            trinoClient.executeUpdate(sql, sessionProperties.build());
         }
         catch (RuntimeException e) {
             throw new RuntimeException(format("Error creating %s.%s.%s", catalogTo, schemaTo, tableName), e);
@@ -152,6 +194,20 @@ public class SchemasCommand
             trinoClient.executeUpdate(format("DROP TABLE \"%s\".\"%s\".\"%s\"", catalog, schema, table));
         }
         trinoClient.executeUpdate(format("DROP SCHEMA \"%s\".\"%s\"", catalog, schema));
+    }
+
+    private List<String> getTableColumns(String catalog, String schema, String table)
+    {
+        return trinoClient.selectSingleStringColumn(format("" +
+                        "SELECT column_name " +
+                        "FROM %s.information_schema.columns " +
+                        "WHERE table_catalog = '%s' " +
+                        "AND table_schema = '%s' " +
+                        "AND table_name = '%s'",
+                catalog,
+                catalog,
+                schema,
+                table));
     }
 
     private void init()
@@ -174,6 +230,7 @@ public class SchemasCommand
             throw new RuntimeException(e);
         }
         trinoClient = injector.getInstance(TrinoClient.class);
+        config = injector.getInstance(SchemasConfig.class);
     }
 
     private static void loadTrinoDriver()
@@ -202,7 +259,8 @@ public class SchemasCommand
                 ImmutableSetMultimap.<String, String>builder()
                         .putAll("orders", Set.of("o_orderkey"))
                         .putAll("lineitem", Set.of("l_orderkey"))
-                        .build()),
+                        .build(),
+                ImmutableSetMultimap.of()),
         tpcds(
                 "tpcds",
                 List.of(
@@ -230,20 +288,28 @@ public class SchemasCommand
                         "web_returns",
                         "web_sales",
                         "web_site"),
+                ImmutableSetMultimap.of(),
                 ImmutableSetMultimap.<String, String>builder()
-                        // TODO
+                        .putAll("catalog_returns", Set.of("cr_returned_date_sk"))
+                        .putAll("catalog_sales", Set.of("cs_sold_date_sk"))
+                        .putAll("store_returns", Set.of("sr_returned_date_sk"))
+                        .putAll("store_sales", Set.of("ss_sold_date_sk"))
+                        .putAll("web_returns", Set.of("wr_returned_date_sk"))
+                        .putAll("web_sales", Set.of("ws_sold_date_sk"))
                         .build()),
         /**/;
 
         private final String requiredCatalog;
         private final List<String> tables;
         private final SetMultimap<String, String> bucketingScheme;
+        private final SetMultimap<String, String> partitioningScheme;
 
-        SchemaType(String requiredCatalog, List<String> tables, SetMultimap<String, String> bucketingScheme)
+        SchemaType(String requiredCatalog, List<String> tables, SetMultimap<String, String> bucketingScheme, SetMultimap<String, String> partitioningScheme)
         {
             this.requiredCatalog = requireNonNull(requiredCatalog, "requiredCatalog is null");
             this.tables = List.copyOf(requireNonNull(tables, "tables is null"));
             this.bucketingScheme = ImmutableSetMultimap.copyOf(requireNonNull(bucketingScheme, "bucketingScheme is null"));
+            this.partitioningScheme = ImmutableSetMultimap.copyOf(requireNonNull(partitioningScheme, "partitioningScheme is null"));
         }
 
         public String getRequiredCatalog()
@@ -259,6 +325,11 @@ public class SchemasCommand
         public SetMultimap<String, String> getBucketingScheme()
         {
             return bucketingScheme;
+        }
+
+        public SetMultimap<String, String> getPartitioningScheme()
+        {
+            return partitioningScheme;
         }
 
         public void checkTrinoConfiguration(CommandSpec spec, TrinoClient trinoClient)
