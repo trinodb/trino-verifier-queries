@@ -28,6 +28,8 @@ Handcrafted query suites for Trino verifier
     ./target/trino-verifier-queries-*-executable.jar schemas --config=etc/schemas.properties create --catalog=hive --schema=tpch_tiny_bucketed --scale-factor=0.01 --overwrite --threads 10 --bucket-count=9 --schema-type tpch
 
     ./target/trino-verifier-queries-*-executable.jar schemas --config=etc/schemas.properties create --catalog=hive --schema=tpcds_tiny --scale-factor=0.01 --overwrite --threads 10 --schema-type tpcds
+  
+    ./target/trino-verifier-queries-*-executable.jar schemas --config=etc/schemas.properties create --catalog=hive --schema=tpcds_tiny_partitioned --scale-factor=0.01 --overwrite --threads 10 --partitioned --schema-type tpcds
     ```
 
 - Create verifier suites (execute from the project root directory)

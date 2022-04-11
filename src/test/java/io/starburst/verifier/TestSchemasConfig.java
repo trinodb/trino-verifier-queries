@@ -17,7 +17,8 @@ public class TestSchemasConfig
         assertRecordedDefaults(recordDefaults(SchemasConfig.class)
                 .setTrinoUrl(null)
                 .setTrinoUsername("verifier")
-                .setTrinoPassword(null));
+                .setTrinoPassword(null)
+                .setForceWritePartitioning(true));
     }
 
     @Test
@@ -27,12 +28,14 @@ public class TestSchemasConfig
                 .put("trino-url", "jdbc:trino://localhost:8080")
                 .put("trino-username", "someusername")
                 .put("trino-password", "somepassword")
+                .put("force-write-partitioning", "false")
                 .buildOrThrow();
 
         SchemasConfig expected = new SchemasConfig()
                 .setTrinoUrl("jdbc:trino://localhost:8080")
                 .setTrinoUsername("someusername")
-                .setTrinoPassword("somepassword");
+                .setTrinoPassword("somepassword")
+                .setForceWritePartitioning(false);
 
         assertFullMapping(properties, expected);
     }
