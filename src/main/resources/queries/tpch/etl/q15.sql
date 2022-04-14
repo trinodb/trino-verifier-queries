@@ -22,7 +22,7 @@ FROM
   supplier,
   revenue
 WHERE
-  s_suppkey <> supplier_no
+  s_suppkey = supplier_no
   AND total_revenue < (
     SELECT max(total_revenue)
     FROM
