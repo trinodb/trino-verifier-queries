@@ -1,7 +1,15 @@
 CREATE TABLE q14
 AS
 SELECT
-    *,
+    l_quantity,
+    l_extendedprice,
+    l_discount,
+    l_tax,
+    l_returnflag,
+    l_linestatus,
+    l_shipdate,
+    l_commitdate,
+    l_receiptdate,
     (CASE
     WHEN p_type LIKE 'PROMO%'
       THEN l_extendedprice * (1 - l_discount)
