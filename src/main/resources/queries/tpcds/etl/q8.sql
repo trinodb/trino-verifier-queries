@@ -1,7 +1,37 @@
 CREATE TABLE q8
 AS
 SELECT
-  *
+  ss_quantity,
+  ss_wholesale_cost,
+  ss_list_price,
+  ss_sales_price,
+  ss_ext_discount_amt,
+  ss_ext_sales_price,
+  ss_ext_wholesale_cost,
+  ss_ext_list_price,
+  ss_ext_tax,
+  ss_coupon_amt,
+  ss_net_paid,
+  ss_net_paid_inc_tax,
+  ss_net_profit,
+  d_date,
+  d_fy_year,
+  d_holiday,
+  d_weekend,
+  d_following_holiday,
+  s_store_name,
+  s_number_employees,
+  s_floor_space,
+  s_hours,
+  s_manager,
+  s_street_number,
+  s_street_name,
+  s_suite_number,
+  s_city,
+  s_county,
+  s_state,
+  s_zip,
+  s_country
 FROM
   store_sales
 , date_dim
@@ -434,3 +464,5 @@ FROM
 )  v1
 WHERE ("ss_store_sk" = "s_store_sk")
    AND ("ss_sold_date_sk" = "d_date_sk")
+   AND ("substr"("s_zip", 1, 2) = "substr"("v1"."ca_zip", 1, 2))
+   AND ("d_year" BETWEEN 1998 AND 2000)
