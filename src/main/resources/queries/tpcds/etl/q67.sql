@@ -6,8 +6,6 @@ SELECT
 , "i_brand"
 , "i_product_name"
 , "d_year"
-, "d_qoy"
-, "d_moy"
 , "s_store_id"
 , "sumsales"
 , "rank"() OVER (PARTITION BY "i_category" ORDER BY "sumsales" DESC) "rk"
@@ -19,8 +17,6 @@ FROM
   , "i_brand"
   , "i_product_name"
   , "d_year"
-  , "d_qoy"
-  , "d_moy"
   , "s_store_id"
   , "sum"(COALESCE(("ss_sales_price" * "ss_quantity"), 0)) "sumsales"
   FROM
@@ -32,5 +28,5 @@ FROM
      AND ("ss_item_sk" = "i_item_sk")
      AND ("ss_store_sk" = "s_store_sk")
      AND ("d_month_seq" BETWEEN 1200 AND (1200 + 11))
-  GROUP BY ROLLUP (i_category, i_class, i_brand, i_product_name, d_year, d_qoy, d_moy, s_store_id)
+  GROUP BY i_category, i_class, i_brand, i_product_name, d_year, s_store_id
 )  dw1

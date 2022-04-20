@@ -1,8 +1,8 @@
 CREATE TABLE q72
 AS
 SELECT
-  "i_item_desc"
-, "w_warehouse_name"
+  "i_item_id"
+, "w_warehouse_id"
 , "d1"."d_week_seq"
 , "hd_buy_potential"
 , "d1"."d_year"
@@ -26,4 +26,4 @@ LEFT JOIN catalog_returns ON ("cr_item_sk" = "cs_item_sk")
 WHERE ("d1"."d_week_seq" = "d2"."d_week_seq")
    AND ("inv_quantity_on_hand" < "cs_quantity")
    AND ("d3"."d_date" > ("d1"."d_date" + INTERVAL  '5' DAY))
-GROUP BY "i_item_desc", "w_warehouse_name", "d1"."d_week_seq", "hd_buy_potential", "d1"."d_year", "cd_marital_status"
+GROUP BY "i_item_id", "w_warehouse_id", "d1"."d_week_seq", "hd_buy_potential", "d1"."d_year", "cd_marital_status"
