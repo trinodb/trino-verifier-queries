@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import io.airlift.configuration.Config;
 import io.airlift.configuration.ConfigDescription;

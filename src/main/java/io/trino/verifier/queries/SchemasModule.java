@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import com.google.inject.Binder;
 import com.google.inject.Scopes;

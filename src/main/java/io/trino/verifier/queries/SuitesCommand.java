@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Injector;

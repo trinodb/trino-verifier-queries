@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import com.google.common.collect.ImmutableMap;
 import org.testng.annotations.Test;

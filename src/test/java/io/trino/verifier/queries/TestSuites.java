@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;

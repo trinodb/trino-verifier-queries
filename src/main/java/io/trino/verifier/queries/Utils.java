@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import com.google.common.io.Resources;
 import org.reflections.Reflections;
