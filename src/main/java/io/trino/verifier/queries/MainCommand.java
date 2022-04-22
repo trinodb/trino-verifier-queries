@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import io.airlift.log.Logging;
 import picocli.CommandLine;
@@ -7,7 +7,7 @@ import picocli.CommandLine.Command;
 import java.io.PrintStream;
 
 import static io.airlift.log.Level.WARN;
-import static io.starburst.verifier.MainCommand.VersionProvider;
+import static io.trino.verifier.queries.MainCommand.VersionProvider;
 import static java.util.Objects.requireNonNullElse;
 import static java.util.logging.Level.WARNING;
 

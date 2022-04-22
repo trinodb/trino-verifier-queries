@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import com.google.common.collect.ImmutableList;
 
@@ -12,8 +12,8 @@ import java.util.regex.Matcher;
 import java.util.regex.Pattern;
 
 import static com.google.common.collect.ImmutableList.toImmutableList;
-import static io.starburst.verifier.Utils.findResources;
-import static io.starburst.verifier.Utils.readResource;
+import static io.trino.verifier.queries.Utils.findResources;
+import static io.trino.verifier.queries.Utils.readResource;
 import static java.lang.String.format;
 import static java.util.Objects.requireNonNull;
 

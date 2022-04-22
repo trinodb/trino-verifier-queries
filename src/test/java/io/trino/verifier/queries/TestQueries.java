@@ -1,4 +1,4 @@
-package io.starburst.verifier;
+package io.trino.verifier.queries;
 
 import io.trino.sql.parser.ParsingOptions;
 import io.trino.sql.parser.SqlParser;

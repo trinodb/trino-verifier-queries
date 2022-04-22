@@ -4,14 +4,14 @@
          xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
     <modelVersion>4.0.0</modelVersion>
 
-    <groupId>io.starburst.verifier</groupId>
+    <groupId>io.trino.verifier</groupId>
     <artifactId>trino-verifier-queries</artifactId>
     <version>0.1-SNAPSHOT</version>
     <packaging>jar</packaging>
 
     <name>trino-verifier-queries</name>
     <description>Handcrafted query suites for Trino verifier</description>
-    <url>https://github.com/starburstdata/trino-verifier-queries</url>
+    <url>https://github.com/trinodb/trino-verifier-queries</url>
 
     <parent>
         <groupId>io.airlift</groupId>
@@ -37,7 +37,7 @@
         <dep.airlift.version>214</dep.airlift.version>
         <dep.trino.version>370</dep.trino.version>
 
-        <main-class>io.starburst.verifier.Main</main-class>
+        <main-class>io.trino.verifier.queries.Main</main-class>
     </properties>
 
     <dependencies>
