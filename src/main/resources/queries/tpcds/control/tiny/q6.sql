@@ -1,0 +1,6 @@
+SELECT *
+FROM
+(
+  VALUES
+    (CHAR 'TX', BIGINT '10')
+)

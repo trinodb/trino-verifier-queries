@@ -1,0 +1,7 @@
+SELECT *
+FROM
+(
+  VALUES
+    (NULL, NULL)
+)
+WHERE 1=0
