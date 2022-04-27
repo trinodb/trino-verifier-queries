@@ -34,13 +34,13 @@ Handcrafted query suites for Trino verifier
 
 - Create verifier suites (execute from the project root directory)
     ```
-    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpch_tiny --name tpch_tiny --overwrite --suite tpch/standard
+    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpch_tiny --name tpch_tiny --control tiny --overwrite --suite tpch/standard
 
-    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpch_tiny_bucketed --name tpch_tiny_bucketed_etl --overwrite --suite tpch/etl
+    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpch_tiny_bucketed --name tpch_tiny_bucketed_etl --control tiny --overwrite --suite tpch/etl
 
-    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpcds_tiny --name tpcds_tiny --overwrite --suite tpcds/standard
+    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpcds_tiny --name tpcds_tiny --control tiny --overwrite --suite tpcds/standard
   
-    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpcds_tiny --name tpcds_tiny_etl --overwrite --suite tpcds/etl
+    ./target/trino-verifier-queries-*-executable.jar suites --config=etc/suites.properties create --catalog hive --schema tpcds_tiny --name tpcds_tiny_etl --control tiny --overwrite --suite tpcds/etl
     ```
 - Run verifier (execute from the project root directory)
     ```

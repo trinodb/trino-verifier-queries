@@ -1,5 +1,7 @@
 package io.trino.verifier.queries;
 
+import com.google.common.base.Joiner;
+import com.google.common.base.Splitter;
 import com.google.common.collect.ImmutableList;
 
 import javax.inject.Inject;
@@ -32,19 +34,29 @@ public class Suites
         this.queries = requireNonNull(queries, "queries is null");
     }
 
-    public Optional<Suite> get(String id)
+    public Optional<Suite> get(String id, Optional<String> control)
     {
         Optional<String> suiteDefinition = readResource(RESOURCE_ROOT + id + RESOURCE_EXTENSION);
         if (suiteDefinition.isEmpty()) {
             return Optional.empty();
         }
         List<SuiteEntry> entries = parseSuiteDefinition(id, suiteDefinition.get());
-        ImmutableList.Builder<Query> result = ImmutableList.builder();
+        ImmutableList.Builder<QueryPair> result = ImmutableList.builder();
         for (SuiteEntry entry : entries) {
-            Query query = queries.get(entry.getQueryId()).orElseThrow(() ->
+            Query testQuery = queries.get(entry.getQueryId()).orElseThrow(() ->
                     new IllegalArgumentException(format("Error creating suite %s. Query %s not found.", id, entry.getQueryId())));
+            Query controlQuery;
+            if (control.isPresent()) {
+                List<String> parts = Splitter.on('/').splitToList(entry.getQueryId());
+                String controlQueryId = Joiner.on('/').join(parts.subList(0, parts.size() - 1)) + "/control/" + control.get() + "/" + parts.get(parts.size() - 1);
+                controlQuery = queries.get(controlQueryId).orElseThrow(() ->
+                        new IllegalArgumentException(format("Error creating suite %s. Query %s not found.", id, controlQueryId)));
+            }
+            else {
+                controlQuery = testQuery;
+            }
             for (int i = 0; i < entry.getRepetitions(); i++) {
-                result.add(query);
+                result.add(new QueryPair(entry.getQueryId(), testQuery, controlQuery));
             }
         }
         return Optional.of(new Suite(id, result.build()));
