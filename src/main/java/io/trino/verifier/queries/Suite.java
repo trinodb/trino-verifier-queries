@@ -7,9 +7,9 @@ import static java.util.Objects.requireNonNull;
 public class Suite
 {
     private final String id;
-    private final List<Query> queries;
+    private final List<QueryPair> queries;
 
-    public Suite(String id, List<Query> queries)
+    public Suite(String id, List<QueryPair> queries)
     {
         this.id = requireNonNull(id, "id is null");
         this.queries = List.copyOf(requireNonNull(queries, "queries is null"));
@@ -20,7 +20,7 @@ public class Suite
         return id;
     }
 
-    public List<Query> getQueries()
+    public List<QueryPair> getQueries()
     {
         return queries;
     }

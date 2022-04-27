@@ -64,10 +64,11 @@ public class SuitesCommand
             @Option(names = "--schema", required = true, order = 2) String schema,
             @Option(names = "--name", required = true, order = 3) String name,
             @Option(names = "--overwrite", order = 4) boolean overwrite,
-            @Option(names = "--suite", required = true, order = 5, description = "Suite name") String suiteName)
+            @Option(names = "--suite", required = true, order = 5, description = "Suite name") String suiteName,
+            @Option(names = "--control", order = 6, description = "Control name") Optional<String> control)
     {
         init();
-        Optional<Suite> suite = suites.get(suiteName);
+        Optional<Suite> suite = suites.get(suiteName, control);
         if (suite.isEmpty()) {
             throw new ExecutionException(spec.commandLine(), format("Suite not found: %s", suiteName));
         }
@@ -78,15 +79,15 @@ public class SuitesCommand
             dao.delete(name);
         }
         dao.insert(suite.get().getQueries().stream()
-                .map(query -> new VerifierQuery(
+                .map(queryPair -> new VerifierQuery(
                         name,
-                        query.getId(),
+                        queryPair.getId(),
                         catalog,
                         schema,
-                        query.getSql(),
+                        queryPair.getTest().getSql(),
                         catalog,
                         schema,
-                        query.getSql()))
+                        queryPair.getControl().getSql()))
                 .collect(toImmutableList()));
     }
 
