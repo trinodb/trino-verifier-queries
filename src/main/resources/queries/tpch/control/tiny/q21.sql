@@ -1,0 +1,6 @@
+SELECT *
+FROM
+(
+  VALUES
+    (VARCHAR 'Supplier#000000074', BIGINT '9')
+)

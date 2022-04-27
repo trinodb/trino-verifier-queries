@@ -1,0 +1,6 @@
+SELECT *
+FROM
+(
+  VALUES
+    (NULL, NULL, NULL, NULL, NULL)
+)
