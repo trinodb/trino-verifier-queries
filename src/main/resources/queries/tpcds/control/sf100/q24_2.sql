@@ -1,0 +1,35 @@
+SELECT *
+FROM
+(
+  VALUES
+    (CHAR 'Baker                         ', CHAR 'Keith               ', VARCHAR 'ought', DECIMAL '615969.90'),
+    (CHAR 'Barnhart                      ', CHAR 'Robert              ', VARCHAR 'cally', DECIMAL '6930043.18'),
+    (CHAR 'Brown                         ', CHAR 'Jose                ', VARCHAR 'ought', DECIMAL '5832225.00'),
+    (CHAR 'Caldwell                      ', CHAR 'Lester              ', VARCHAR 'ese', DECIMAL '147600.00'),
+    (CHAR 'Carver                        ', CHAR 'Larry               ', VARCHAR 'bar', DECIMAL '797865.42'),
+    (CHAR 'Cuevas                        ', CHAR 'Carolyn             ', VARCHAR 'able', DECIMAL '1774580.76'),
+    (CHAR 'Davies                        ', CHAR 'Walter              ', VARCHAR 'anti', DECIMAL '316872.00'),
+    (CHAR 'English                       ', CHAR 'Allen               ', VARCHAR 'ese', DECIMAL '226176.93'),
+    (CHAR 'Garcia                        ', CHAR 'Danny               ', VARCHAR 'ought', DECIMAL '450949.50'),
+    (CHAR 'Gray                          ', CHAR 'Brenda              ', VARCHAR 'cally', DECIMAL '19264.80'),
+    (CHAR 'Green                         ', CHAR 'Juan                ', VARCHAR 'ese', DECIMAL '941685.54'),
+    (CHAR 'Hagen                         ', CHAR 'Larry               ', VARCHAR 'ese', DECIMAL '775882.00'),
+    (CHAR 'Hinkle                        ', CHAR 'Katherine           ', VARCHAR 'ese', DECIMAL '504454.60'),
+    (CHAR 'Lindberg                      ', CHAR 'Robert              ', VARCHAR 'cally', DECIMAL '1314089.70'),
+    (CHAR 'Mathis                        ', CHAR 'Shawn               ', VARCHAR 'ese', DECIMAL '2473119.42'),
+    (CHAR 'Miller                        ', CHAR 'Jodi                ', VARCHAR 'able', DECIMAL '1845210.84'),
+    (CHAR 'Poe                           ', CHAR 'Loretta             ', VARCHAR 'cally', DECIMAL '6027123.26'),
+    (CHAR 'Pritchett                     ', CHAR 'Rochelle            ', VARCHAR 'n st', DECIMAL '1996916.67'),
+    (CHAR 'Pryor                         ', CHAR 'Crystal             ', VARCHAR 'anti', DECIMAL '1349298.00'),
+    (CHAR 'Pryor                         ', CHAR 'Crystal             ', VARCHAR 'ese', DECIMAL '572639.76'),
+    (CHAR 'Rhodes                        ', CHAR 'Chad                ', VARCHAR 'bar', DECIMAL '41093.76'),
+    (CHAR 'Rhodes                        ', CHAR 'Charles             ', VARCHAR 'eing', DECIMAL '231287.76'),
+    (CHAR 'Rodriguez                     ', CHAR 'Debra               ', VARCHAR 'bar', DECIMAL '3948954.22'),
+    (CHAR 'Santos                        ', CHAR 'James               ', VARCHAR 'anti', DECIMAL '275097.60'),
+    (CHAR 'Smith                         ', CHAR 'Gloria              ', VARCHAR 'eing', DECIMAL '689298.39'),
+    (CHAR 'Thompson                      ', CHAR 'Sabrina             ', VARCHAR 'bar', DECIMAL '4447984.05'),
+    (CHAR 'Ventura                       ', CHAR 'Anthony             ', VARCHAR 'ese', DECIMAL '2567648.55'),
+    (CHAR 'Walker                        ', CHAR 'Alberto             ', VARCHAR 'cally', DECIMAL '212031.82'),
+    (CHAR 'Winston                       ', CHAR 'Christina           ', VARCHAR 'ese', DECIMAL '519623.82'),
+    (CHAR 'Wolfe                         ', CHAR 'Dennis              ', VARCHAR 'cally', DECIMAL '8070092.80')
+)

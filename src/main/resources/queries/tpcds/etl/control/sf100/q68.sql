@@ -1,0 +1,6 @@
+SELECT *
+FROM
+(
+  VALUES
+    (X'7a 92 16 ee 43 24 12 04', X'3d 69 db 17 20 25 8f db', X'bb 69 ae 51 4c 1f fb 0f', X'13 64 7b 30 ae c3 5e df', X'ba 2c 1b 67 f7 e4 de c1', X'03 1f 52 d6 f5 a6 51 06', X'3f 4e 5c 92 ae e6 c8 ce', X'a6 13 bf 26 5c 82 06 53', X'f3 c9 96 2d cc 7a eb fc', X'30 66 0b 8b 3e 96 71 f5', X'e0 7a 40 f4 cc ef 3b 45', X'3d 69 db 17 20 25 8f db', X'75 84 e3 f8 ee d4 c4 50', X'9d cd 7c 22 4f 6c ee 63', X'9e f0 37 0b 54 4b 35 f4', X'4b 50 f8 e7 d5 35 c6 61', X'8d 80 e0 c6 03 24 c0 42', X'04 77 f0 82 b4 a0 33 18', X'70 5c 65 68 74 7d 22 86', X'50 b4 a5 a2 d6 34 22 a1', X'74 be 7e 5e e1 6f 1f 5d', X'ac 39 14 42 43 01 f0 4d', X'7c 60 fd 53 6c 17 59 46', X'31 97 56 f9 5e b3 d8 1f', X'd1 5d e5 45 bd 8b d4 ab', X'c3 8d e7 84 65 b0 71 9f', X'df 25 2e 6d 7f 55 c4 28', X'94 4e 15 30 cb ac 2d b4', X'c6 cd 2a 8c ad b9 66 8f', X'4b 50 f8 e7 d5 35 c6 61', X'dc 61 9a 06 15 dd 74 73', X'23 82 9e 8b 5d 86 8e 25', X'c7 95 1a d7 fe ea d0 80', X'fe 3d 5f a6 aa 97 53 12', X'd6 e0 23 ad 1f 86 34 c9', X'c7 f1 4b 4e 77 c5 d8 76', X'ba 9d 22 3a 28 84 67 74', X'00 0e 15 87 8e 7c 43 6d', X'f4 68 db 60 d8 83 5b 68', X'47 38 28 86 f9 b8 e9 76', X'a7 dc 7d d1 7f f5 14 2a', X'f5 b2 80 a2 f9 db d0 fd')
+)

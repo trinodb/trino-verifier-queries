@@ -1,0 +1,6 @@
+SELECT *
+FROM
+(
+  VALUES
+    (DECIMAL '298937728.8820')
+)
