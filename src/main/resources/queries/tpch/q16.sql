@@ -27,3 +27,4 @@ ORDER BY
   p_brand,
   p_type,
   p_size
+LIMIT 300

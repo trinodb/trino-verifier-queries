@@ -108,3 +108,4 @@ WHERE ("cs1"."item_sk" = "cs2"."item_sk")
    AND ("cs1"."store_name" = "cs2"."store_name")
    AND ("cs1"."store_zip" = "cs2"."store_zip")
 ORDER BY "cs1"."product_name" ASC, "cs1"."store_name" ASC, "cs2"."cnt" ASC, 14, 15, 16, 17, 18
+LIMIT 100
