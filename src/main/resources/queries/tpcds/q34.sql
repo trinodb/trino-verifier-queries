@@ -33,3 +33,4 @@ FROM
 WHERE ("ss_customer_sk" = "c_customer_sk")
    AND ("cnt" BETWEEN 15 AND 20)
 ORDER BY "c_last_name" ASC, "c_first_name" ASC, "c_salutation" ASC, "c_preferred_cust_flag" DESC, "ss_ticket_number" ASC
+LIMIT 100
