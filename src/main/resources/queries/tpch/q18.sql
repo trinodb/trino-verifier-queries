@@ -29,5 +29,6 @@ GROUP BY
   o_totalprice
 ORDER BY
   o_totalprice DESC,
-  o_orderdate
+  o_orderdate,
+  o_orderkey
 LIMIT 100
