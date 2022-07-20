@@ -35,10 +35,8 @@ SELECT
 , "inv1"."i_item_sk"
 , "inv1"."d_moy" d_moy_1
 , "inv1"."mean" mean_1
-, "inv1"."cov" cov_1
 , "inv2"."d_moy" d_moy_2
 , "inv2"."mean" mean_2
-, "inv2"."cov" cov_2
 FROM
   inv inv1
 , inv inv2
