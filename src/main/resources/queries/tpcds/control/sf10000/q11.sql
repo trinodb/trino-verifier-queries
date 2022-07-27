@@ -5,6 +5,7 @@ FROM
     (CHAR 'AAAAAAAAAAAAABBA', CHAR 'Troy                ', CHAR 'Webb                          ', CHAR 'N', VARCHAR 'NIGER', NULL),
     (CHAR 'AAAAAAAAAAAAABCA', CHAR 'Paul                ', CHAR 'Brown                         ', CHAR 'N', VARCHAR 'ECUADOR', NULL),
     (CHAR 'AAAAAAAAAAAAACBA', CHAR 'Jason               ', CHAR 'Fuller                        ', CHAR 'N', VARCHAR 'INDIA', NULL),
+    (CHAR 'AAAAAAAAAAAAADAA', CHAR 'Clara               ', CHAR 'Karr                          ', CHAR 'N', VARCHAR 'SRI LANKA', NULL),
     (CHAR 'AAAAAAAAAAAAADCA', CHAR 'Molly               ', CHAR 'Werner                        ', CHAR 'Y', VARCHAR 'BELARUS', NULL),
     (CHAR 'AAAAAAAAAAAAAECA', CHAR 'Rebecca             ', CHAR 'Holder                        ', CHAR 'Y', VARCHAR 'AMERICAN SAMOA', NULL),
     (CHAR 'AAAAAAAAAAAAAFCA', CHAR 'Richard             ', CHAR 'Ford                          ', CHAR 'Y', VARCHAR 'LESOTHO', NULL),
@@ -18,7 +19,6 @@ FROM
     (CHAR 'AAAAAAAAAAAAAJCA', CHAR 'Marian              ', CHAR 'Sweet                         ', CHAR 'Y', VARCHAR 'EGYPT', NULL),
     (CHAR 'AAAAAAAAAAAAAJDA', CHAR 'Timothy             ', CHAR 'Simpson                       ', CHAR 'Y', VARCHAR 'KENYA', NULL),
     (CHAR 'AAAAAAAAAAAAAKCA', CHAR 'Herbert             ', CHAR 'Kemp                          ', CHAR 'N', VARCHAR 'IRELAND', NULL),
-    (CHAR 'AAAAAAAAAAAAALAA', CHAR 'Kelvin              ', CHAR 'Sampson                       ', CHAR 'N', VARCHAR 'INDIA', NULL),
     (CHAR 'AAAAAAAAAAAAALBA', CHAR 'Charles             ', CHAR 'Dodds                         ', CHAR 'N', VARCHAR 'MADAGASCAR', NULL),
     (CHAR 'AAAAAAAAAAAAAMAA', CHAR 'John                ', CHAR 'Lord                          ', CHAR 'N', VARCHAR 'ARGENTINA', NULL),
     (CHAR 'AAAAAAAAAAAAANAA', CHAR 'Olga                ', CHAR 'Stanley                       ', CHAR 'N', VARCHAR 'GREECE', NULL),
@@ -95,11 +95,11 @@ FROM
     (CHAR 'AAAAAAAAAAAAEFBA', CHAR 'Tabitha             ', CHAR 'Thomas                        ', CHAR 'Y', VARCHAR 'PORTUGAL', NULL),
     (CHAR 'AAAAAAAAAAAAEFCA', CHAR 'Ignacio             ', CHAR 'Bishop                        ', CHAR 'Y', VARCHAR 'HUNGARY', NULL),
     (CHAR 'AAAAAAAAAAAAEGAA', CHAR 'Forrest             ', CHAR 'Johnson                       ', CHAR 'Y', VARCHAR 'MACAO', NULL),
+    (CHAR 'AAAAAAAAAAAAEGDA', CHAR 'Frank               ', CHAR 'Gonzalez                      ', CHAR 'Y', VARCHAR 'BOUVET ISLAND', NULL),
     (CHAR 'AAAAAAAAAAAAEHBA', CHAR 'Catherine           ', CHAR 'Lear                          ', CHAR 'Y', VARCHAR 'AMERICAN SAMOA', NULL),
     (CHAR 'AAAAAAAAAAAAEHCA', CHAR 'Olga                ', CHAR 'Mcghee                        ', CHAR 'Y', VARCHAR 'BELARUS', NULL),
     (CHAR 'AAAAAAAAAAAAEHDA', CHAR 'Gerald              ', CHAR 'Blair                         ', CHAR 'N', VARCHAR 'CHILE', NULL),
     (CHAR 'AAAAAAAAAAAAEIBA', CHAR 'Brenda              ', CHAR 'Hatfield                      ', CHAR 'Y', VARCHAR 'ECUADOR', NULL),
     (CHAR 'AAAAAAAAAAAAEJDA', CHAR 'Peggy               ', CHAR 'Gordon                        ', CHAR 'N', VARCHAR 'SAMOA', NULL),
-    (CHAR 'AAAAAAAAAAAAEKAA', CHAR 'Charlene            ', CHAR 'Patrick                       ', CHAR 'Y', VARCHAR 'LESOTHO', NULL),
-    (CHAR 'AAAAAAAAAAAAEKCA', CHAR 'Tamara              ', CHAR 'Williams                      ', CHAR 'N', VARCHAR 'FIJI', NULL)
+    (CHAR 'AAAAAAAAAAAAEKAA', CHAR 'Charlene            ', CHAR 'Patrick                       ', CHAR 'Y', VARCHAR 'LESOTHO', NULL)
 )

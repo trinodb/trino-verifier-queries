@@ -5,6 +5,7 @@ FROM
     (CHAR 'AAAAAAAAAAAAABBA', CHAR 'Troy                ', CHAR 'Webb                          '),
     (CHAR 'AAAAAAAAAAAAABCA', CHAR 'Paul                ', CHAR 'Brown                         '),
     (CHAR 'AAAAAAAAAAAAACBA', CHAR 'Jason               ', CHAR 'Fuller                        '),
+    (CHAR 'AAAAAAAAAAAAADAA', CHAR 'Clara               ', CHAR 'Karr                          '),
     (CHAR 'AAAAAAAAAAAAADCA', CHAR 'Molly               ', CHAR 'Werner                        '),
     (CHAR 'AAAAAAAAAAAAAECA', CHAR 'Rebecca             ', CHAR 'Holder                        '),
     (CHAR 'AAAAAAAAAAAAAFCA', CHAR 'Richard             ', CHAR 'Ford                          '),
@@ -100,6 +101,5 @@ FROM
     (CHAR 'AAAAAAAAAAAAEHCA', CHAR 'Olga                ', CHAR 'Mcghee                        '),
     (CHAR 'AAAAAAAAAAAAEHDA', CHAR 'Gerald              ', CHAR 'Blair                         '),
     (CHAR 'AAAAAAAAAAAAEIBA', CHAR 'Brenda              ', CHAR 'Hatfield                      '),
-    (CHAR 'AAAAAAAAAAAAEKAA', CHAR 'Charlene            ', CHAR 'Patrick                       '),
-    (CHAR 'AAAAAAAAAAAAEKCA', CHAR 'Tamara              ', CHAR 'Williams                      ')
+    (CHAR 'AAAAAAAAAAAAEKAA', CHAR 'Charlene            ', CHAR 'Patrick                       ')
 )

@@ -1,6 +1,31 @@
 CREATE TABLE q19
 AS
-SELECT *
+SELECT
+  l_orderkey,
+  l_partkey,
+  l_suppkey,
+  l_linenumber,
+  l_quantity,
+  l_extendedprice,
+  l_discount,
+  l_tax,
+  l_returnflag,
+  l_linestatus,
+  l_shipdate,
+  l_commitdate,
+  l_receiptdate,
+  l_shipinstruct,
+  l_shipmode,
+  l_comment,
+  p_partkey,
+  p_name,
+  p_mfgr,
+  p_brand,
+  p_type,
+  p_size,
+  p_container,
+  p_retailprice,
+  p_comment
 FROM
   lineitem,
   part
