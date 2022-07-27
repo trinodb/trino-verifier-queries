@@ -2,5 +2,5 @@ SELECT *
 FROM
 (
   VALUES
-    (X'a6 25 92 85 72 6b 9c ca', X'c1 e7 e2 4b 55 87 47 0c', X'5e d8 d3 cd cc 2d 24 d0')
+    (X'76 5d 6c 77 e7 ca 46 5e', X'68 47 78 d1 a9 40 5c f0', X'f2 c7 5b e7 18 b5 eb 4c')
 )
