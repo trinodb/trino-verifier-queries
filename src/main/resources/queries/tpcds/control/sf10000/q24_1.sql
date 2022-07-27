@@ -64,7 +64,7 @@ FROM
     (CHAR 'Adcock                        ', CHAR 'Charles             ', VARCHAR 'cally', DECIMAL '4097759.05'),
     (CHAR 'Adcock                        ', CHAR 'Richard             ', VARCHAR 'ese', DECIMAL '9799428.60'),
     (CHAR 'Adkins                        ', CHAR 'Gwen                ', VARCHAR 'able', DECIMAL '16907610.72'),
-    (CHAR 'Adkins                        ', CHAR 'Robert              ', VARCHAR 'able', DECIMAL '4336547353.60'),
+    (CHAR 'Adkins                        ', CHAR 'Robert              ', VARCHAR 'able', DECIMAL '135517104.80'),
     (CHAR 'Adler                         ', CHAR 'Ramona              ', VARCHAR 'able', DECIMAL '37881582.05'),
     (CHAR 'Agnew                         ', CHAR 'Seth                ', VARCHAR 'cally', DECIMAL '54305495.20'),
     (CHAR 'Aguilar                       ', CHAR 'Brittany            ', VARCHAR 'able', DECIMAL '66740256.00'),
@@ -255,7 +255,6 @@ FROM
     (CHAR 'Anderson                      ', CHAR 'William             ', VARCHAR 'cally', DECIMAL '1755436.32'),
     (CHAR 'Andrade                       ', CHAR 'Gregory             ', VARCHAR 'able', DECIMAL '420862.20'),
     (CHAR 'Andrade                       ', CHAR 'Robert              ', VARCHAR 'ese', DECIMAL '14936762.61'),
-    (CHAR 'Andrew                        ', CHAR 'Cecil               ', VARCHAR 'anti', DECIMAL '628703.28'),
     (CHAR 'Andrews                       ', CHAR 'Cynthia             ', VARCHAR 'ese', DECIMAL '14221896.00'),
     (CHAR 'Andrews                       ', CHAR 'George              ', VARCHAR 'ation', DECIMAL '84486704.28'),
     (CHAR 'Andrews                       ', CHAR 'Michael             ', VARCHAR 'cally', DECIMAL '292126396.32'),
@@ -301,5 +300,6 @@ FROM
     (CHAR 'Armstrong                     ', CHAR 'Richard             ', VARCHAR 'eing', DECIMAL '14228137.56'),
     (CHAR 'Armstrong                     ', CHAR 'Stephanie           ', VARCHAR 'n st', DECIMAL '583909.48'),
     (CHAR 'Armstrong                     ', CHAR 'Van                 ', VARCHAR 'ese', DECIMAL '110221273.56'),
-    (CHAR 'Armstrong                     ', CHAR 'Wendy               ', VARCHAR 'n st', DECIMAL '166158474.30')
+    (CHAR 'Armstrong                     ', CHAR 'Wendy               ', VARCHAR 'n st', DECIMAL '166158474.30'),
+    (CHAR 'Arndt                         ', CHAR 'Elia                ', VARCHAR 'eing', DECIMAL '57568171.24')
 )
