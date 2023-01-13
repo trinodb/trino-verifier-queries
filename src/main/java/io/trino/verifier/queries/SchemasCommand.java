@@ -77,7 +77,8 @@ public class SchemasCommand
             @Option(names = "--partitioned", order = 5) boolean partitioned,
             @Option(names = "--scale-factor", order = 6, defaultValue = "0.1") BigDecimal scaleFactor,
             @Option(names = "--threads", order = 7, defaultValue = "1") int threads,
-            @Option(names = "--schema-type", required = true, order = 8, description = "Schema type. Valid values: ${COMPLETION-CANDIDATES}") SchemaType schemaType)
+            @Option(names = "--schema-type", required = true, order = 8, description = "Schema type. Valid values: ${COMPLETION-CANDIDATES}") SchemaType schemaType,
+            @Option(names = "--table-properties", order = 9, description = "Table properties", defaultValue = "") String tableProperties)
     {
         init();
         schemaType.checkTrinoConfiguration(spec, trinoClient);
@@ -104,7 +105,8 @@ public class SchemasCommand
                         table,
                         bucketCount > 0 ? schemaType.getBucketingScheme().get(table) : Set.of(),
                         partitioned ? schemaType.getPartitioningScheme().get(table) : Set.of(),
-                        bucketCount)))
+                        bucketCount,
+                        tableProperties)))
                 .map(MoreFutures::asVoid)
                 .collect(toImmutableList());
         ListenableFuture<List<Void>> future = allAsList(futures);
@@ -142,13 +144,14 @@ public class SchemasCommand
             String tableName,
             Set<String> bucketingScheme,
             Set<String> partitioningScheme,
-            int bucketCount)
+            int bucketCount,
+            String tableProperties)
     {
         List<String> tableColumns = getTableColumns(catalogFrom, schemaFrom, tableName);
         String bucketing = "";
         String partitioning = "";
         String sql = format("CREATE TABLE \"%s\".\"%s\".\"%s\" ", catalogTo, schemaTo, tableName);
-        if (!bucketingScheme.isEmpty() || !partitioningScheme.isEmpty()) {
+        if (!bucketingScheme.isEmpty() || !partitioningScheme.isEmpty() || !tableProperties.isEmpty()) {
             String withClause = "";
             if (!bucketingScheme.isEmpty()) {
                 bucketing = bucketingScheme.stream().map(value -> "'" + value + "'").collect(joining(" , "));
@@ -167,6 +170,12 @@ public class SchemasCommand
                 tableColumns = tableColumnsBuilder.build();
                 partitioning = partitioningScheme.stream().map(value -> "'" + value + "'").collect(joining(" , "));
                 withClause += format("partitioned_by = ARRAY[%s]", partitioning);
+            }
+            if (!tableProperties.isEmpty()) {
+                if (!withClause.isEmpty()) {
+                    withClause += ", ";
+                }
+                withClause += tableProperties;
             }
             sql += "WITH (" + withClause + ") ";
         }
