@@ -21,6 +21,7 @@ import picocli.CommandLine.Spec;
 import java.io.File;
 import java.math.BigDecimal;
 import java.util.List;
+import java.util.Map;
 import java.util.Set;
 
 import static com.google.common.base.Throwables.throwIfUnchecked;
@@ -95,6 +96,7 @@ public class SchemasCommand
         ListeningExecutorService executor = listeningDecorator(newFixedThreadPool(threads, daemonThreadsNamed("executor-%s")));
         List<ListenableFuture<Void>> futures = schemaType.getTables().stream()
                 .map(table -> executor.submit(() -> copyTable(
+                        schemaType,
                         schemaType.getRequiredCatalog(),
                         "sf" + scaleFactor,
                         catalog,
@@ -132,6 +134,7 @@ public class SchemasCommand
     }
 
     private void copyTable(
+            SchemaType schemaType,
             String catalogFrom,
             String schemaFrom,
             String catalogTo,
@@ -172,6 +175,7 @@ public class SchemasCommand
                 + (bucketing.isEmpty() ? "" : format(" bucketed on %s", bucketing))
                 + (partitioning.isEmpty() ? "" : format(" partitioned on %s", partitioning)));
         ImmutableMap.Builder<String, String> sessionProperties = ImmutableMap.builder();
+        sessionProperties.putAll(schemaType.getSessionProperties());
         if (!partitioningScheme.isEmpty() && config.isForceWritePartitioning()) {
             // force write partitioning to overcome 100 partitions per writer restriction
             // partitioning scheme is known to create ~2000 partitions for each table
@@ -260,7 +264,8 @@ public class SchemasCommand
                         .putAll("orders", Set.of("o_orderkey"))
                         .putAll("lineitem", Set.of("l_orderkey"))
                         .build(),
-                ImmutableSetMultimap.of()),
+                ImmutableSetMultimap.of(),
+                Map.of()),
         tpcds(
                 "tpcds",
                 List.of(
@@ -296,20 +301,26 @@ public class SchemasCommand
                         .putAll("store_sales", Set.of("ss_sold_date_sk"))
                         .putAll("web_returns", Set.of("wr_returned_date_sk"))
                         .putAll("web_sales", Set.of("ws_sold_date_sk"))
-                        .build()),
+                        .build(),
+                ImmutableMap.<String, String>builder()
+                        // to ensure generated data is deterministic (https://github.com/trinodb/trino/pull/15715)
+                        .put("tpcds.split_count", "1550")
+                        .buildOrThrow()),
         /**/;
 
         private final String requiredCatalog;
         private final List<String> tables;
         private final SetMultimap<String, String> bucketingScheme;
         private final SetMultimap<String, String> partitioningScheme;
+        private final Map<String, String> sessionProperties;
 
-        SchemaType(String requiredCatalog, List<String> tables, SetMultimap<String, String> bucketingScheme, SetMultimap<String, String> partitioningScheme)
+        SchemaType(String requiredCatalog, List<String> tables, SetMultimap<String, String> bucketingScheme, SetMultimap<String, String> partitioningScheme, Map<String, String> sessionProperties)
         {
             this.requiredCatalog = requireNonNull(requiredCatalog, "requiredCatalog is null");
             this.tables = List.copyOf(requireNonNull(tables, "tables is null"));
             this.bucketingScheme = ImmutableSetMultimap.copyOf(requireNonNull(bucketingScheme, "bucketingScheme is null"));
             this.partitioningScheme = ImmutableSetMultimap.copyOf(requireNonNull(partitioningScheme, "partitioningScheme is null"));
+            this.sessionProperties = Map.copyOf(requireNonNull(sessionProperties, "sessionProperties is null"));
         }
 
         public String getRequiredCatalog()
@@ -330,6 +341,11 @@ public class SchemasCommand
         public SetMultimap<String, String> getPartitioningScheme()
         {
             return partitioningScheme;
+        }
+
+        public Map<String, String> getSessionProperties()
+        {
+            return sessionProperties;
         }
 
         public void checkTrinoConfiguration(CommandSpec spec, TrinoClient trinoClient)
