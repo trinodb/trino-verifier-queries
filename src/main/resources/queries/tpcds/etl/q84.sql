@@ -1,4 +1,5 @@
 CREATE TABLE q84
+--WITH--
 AS
 SELECT
   "c_customer_id" "customer_id"

@@ -1,4 +1,5 @@
 CREATE TABLE q41
+--WITH--
 AS
 SELECT DISTINCT "i_product_name"
 FROM

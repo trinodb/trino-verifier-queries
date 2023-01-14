@@ -1,4 +1,5 @@
 CREATE TABLE q19
+--WITH--
 AS
 SELECT
   "i_brand_id" "brand_id"

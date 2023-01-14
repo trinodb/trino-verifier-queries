@@ -1,4 +1,5 @@
 CREATE TABLE q45
+--WITH--
 AS
 SELECT
   "ca_zip"

@@ -1,5 +1,7 @@
 package io.trino.verifier.queries;
 
+import java.util.function.Function;
+
 import static java.util.Objects.requireNonNull;
 
 public class QueryPair
@@ -28,5 +30,13 @@ public class QueryPair
     public Query getControl()
     {
         return control;
+    }
+
+    public QueryPair preProcessSql(Function<String, String> processor)
+    {
+        return new QueryPair(
+                id,
+                test.preProcessSql(processor),
+                control.preProcessSql(processor));
     }
 }

@@ -1,4 +1,5 @@
 CREATE TABLE q68
+--WITH--
 AS
 SELECT
   *

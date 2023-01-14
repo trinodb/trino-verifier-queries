@@ -1,4 +1,5 @@
 CREATE TABLE q70
+--WITH--
 AS
 SELECT
   "sum"("ss_net_profit") "total_sum"

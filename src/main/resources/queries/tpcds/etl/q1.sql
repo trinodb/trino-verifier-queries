@@ -1,4 +1,5 @@
 CREATE TABLE q1
+--WITH--
 AS
 WITH
   customer_total_return AS (

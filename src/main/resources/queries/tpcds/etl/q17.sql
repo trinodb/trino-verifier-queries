@@ -1,4 +1,5 @@
 CREATE TABLE q17
+--WITH--
 AS
 SELECT
   "i_item_id"

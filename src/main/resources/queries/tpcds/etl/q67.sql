@@ -1,4 +1,5 @@
 CREATE TABLE q67
+--WITH--
 AS
 SELECT
  "i_category"

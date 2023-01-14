@@ -1,4 +1,5 @@
 CREATE TABLE q5
+--WITH--
 AS
 WITH
   ssr AS (

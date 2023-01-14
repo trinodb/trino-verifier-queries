@@ -1,4 +1,5 @@
 CREATE TABLE q91
+--WITH--
 AS
 SELECT
   "cc_call_center_id" "Call_Center"

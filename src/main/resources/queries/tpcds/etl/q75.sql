@@ -1,4 +1,5 @@
 CREATE TABLE q75
+--WITH--
 AS
 SELECT
  "d_year"

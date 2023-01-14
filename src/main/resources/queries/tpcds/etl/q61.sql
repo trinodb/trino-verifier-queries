@@ -1,4 +1,5 @@
 CREATE TABLE q61
+--WITH--
 AS
 SELECT
   ss_quantity,

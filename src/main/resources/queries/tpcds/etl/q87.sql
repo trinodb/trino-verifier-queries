@@ -1,4 +1,5 @@
 CREATE TABLE q87
+--WITH--
 AS
 (SELECT DISTINCT
         "c_last_name"

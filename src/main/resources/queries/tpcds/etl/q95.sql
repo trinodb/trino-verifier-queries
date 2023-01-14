@@ -1,4 +1,5 @@
 CREATE TABLE q95
+--WITH--
 AS
 WITH
   ws_wh AS (

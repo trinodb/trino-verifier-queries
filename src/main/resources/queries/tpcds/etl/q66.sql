@@ -1,4 +1,5 @@
 CREATE TABLE q66
+--WITH--
 AS
 SELECT
   "w_warehouse_name"

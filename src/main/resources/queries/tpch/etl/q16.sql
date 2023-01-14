@@ -1,4 +1,5 @@
 CREATE TABLE q16
+--WITH--
 AS
 SELECT
   p_brand,

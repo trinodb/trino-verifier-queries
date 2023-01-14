@@ -1,4 +1,5 @@
 CREATE TABLE q32
+--WITH--
 AS
 SELECT
   cs_sold_date_sk,

@@ -1,4 +1,5 @@
 CREATE TABLE q93
+--WITH--
 AS
 SELECT
   "ss_customer_sk"

@@ -1,4 +1,5 @@
 CREATE TABLE q39_1
+--WITH--
 AS
 WITH
   inv AS (

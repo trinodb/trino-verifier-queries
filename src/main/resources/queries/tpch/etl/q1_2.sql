@@ -1,4 +1,5 @@
 CREATE TABLE q1_2
+--WITH--
 AS
 SELECT
   l_suppkey,

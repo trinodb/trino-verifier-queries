@@ -1,4 +1,5 @@
 CREATE TABLE q83
+--WITH--
 AS
 WITH
   sr_items AS (

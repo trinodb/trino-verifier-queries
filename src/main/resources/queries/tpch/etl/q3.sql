@@ -1,4 +1,5 @@
 CREATE TABLE q3
+--WITH--
 AS
 SELECT
   l_orderkey,

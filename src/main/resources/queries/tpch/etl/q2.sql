@@ -1,4 +1,5 @@
 CREATE TABLE q2
+--WITH--
 AS
 SELECT
   s_acctbal,
