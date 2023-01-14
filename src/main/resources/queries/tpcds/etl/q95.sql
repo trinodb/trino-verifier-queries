@@ -17,9 +17,9 @@ SELECT
 "ca_state"
 , "web_company_name"
 , "ws_order_number"
-,  "count"(DISTINCT "ws_order_number") "order count"
-, "sum"("ws_ext_ship_cost") "total shipping cost"
-, "sum"("ws_net_profit") "total net profit"
+,  "count"(DISTINCT "ws_order_number") "order_count"
+, "sum"("ws_ext_ship_cost") "total_shipping_cost"
+, "sum"("ws_net_profit") "total_net_profit"
 FROM
   web_sales ws1
 , date_dim
