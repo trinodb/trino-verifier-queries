@@ -1,4 +1,5 @@
 CREATE TABLE q40
+--WITH--
 AS
 SELECT
   "w_state"

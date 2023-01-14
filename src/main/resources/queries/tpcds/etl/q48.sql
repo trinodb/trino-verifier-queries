@@ -1,4 +1,5 @@
 CREATE TABLE q48
+--WITH--
 AS
 SELECT
   ss_sold_date_sk,

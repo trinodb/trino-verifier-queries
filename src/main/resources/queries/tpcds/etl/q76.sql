@@ -1,4 +1,5 @@
 CREATE TABLE q76
+--WITH--
 AS
 SELECT
      'store' "channel"

@@ -1,4 +1,5 @@
 CREATE TABLE q64
+--WITH--
 AS
 WITH
   cs_ui AS (

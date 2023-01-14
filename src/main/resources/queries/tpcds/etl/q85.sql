@@ -1,4 +1,5 @@
 CREATE TABLE q85
+--WITH--
 AS
 SELECT
   "substr"("r_reason_desc", 1, 20) r_reason_desc

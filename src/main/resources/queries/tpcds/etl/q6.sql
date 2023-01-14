@@ -1,4 +1,5 @@
 CREATE TABLE q6
+--WITH--
 AS
 SELECT
  ca_address_id,

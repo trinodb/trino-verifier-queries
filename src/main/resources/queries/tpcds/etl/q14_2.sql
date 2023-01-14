@@ -1,4 +1,5 @@
 CREATE TABLE q14_2
+--WITH--
 AS
 WITH
   cross_items AS (

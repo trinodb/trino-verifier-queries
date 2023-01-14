@@ -1,4 +1,5 @@
 CREATE TABLE q33
+--WITH--
 AS
 WITH
   ss AS (

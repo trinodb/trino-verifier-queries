@@ -1,4 +1,5 @@
 CREATE TABLE q50
+--WITH--
 AS
 SELECT
   "s_store_name"

@@ -1,4 +1,5 @@
 CREATE TABLE q52
+--WITH--
 AS
 SELECT
   "dt"."d_year"

@@ -1,4 +1,5 @@
 CREATE TABLE q88
+--WITH--
 AS
 SELECT
     "s1"."hd_dep_count"

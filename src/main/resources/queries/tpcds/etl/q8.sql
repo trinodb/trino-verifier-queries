@@ -1,4 +1,5 @@
 CREATE TABLE q8
+--WITH--
 AS
 SELECT
   ss_quantity,

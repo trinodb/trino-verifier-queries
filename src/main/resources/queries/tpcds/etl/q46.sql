@@ -1,4 +1,5 @@
 CREATE TABLE q46
+--WITH--
 AS
 SELECT
   "c_last_name"

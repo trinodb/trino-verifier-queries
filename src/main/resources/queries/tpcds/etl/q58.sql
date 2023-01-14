@@ -1,4 +1,5 @@
 CREATE TABLE q58
+--WITH--
 AS
 WITH
   ss_items AS (

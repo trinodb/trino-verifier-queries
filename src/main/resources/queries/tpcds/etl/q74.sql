@@ -1,4 +1,5 @@
 CREATE TABLE q74
+--WITH--
 AS
 WITH
   year_total AS (

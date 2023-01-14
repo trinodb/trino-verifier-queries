@@ -1,4 +1,5 @@
 CREATE TABLE q20
+--WITH--
 AS
 SELECT
   s_name,

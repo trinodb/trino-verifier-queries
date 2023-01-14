@@ -65,7 +65,8 @@ public class SuitesCommand
             @Option(names = "--name", required = true, order = 3) String name,
             @Option(names = "--overwrite", order = 4) boolean overwrite,
             @Option(names = "--suite", required = true, order = 5, description = "Suite name") String suiteName,
-            @Option(names = "--control", order = 6, description = "Control name") Optional<String> control)
+            @Option(names = "--control", order = 6, description = "Control name") Optional<String> control,
+            @Option(names = "--create-table-properties", order = 7, defaultValue = "", description = "Additional table properties provided to CREATE TABLE statements") String createTableProperties)
     {
         init();
         Optional<Suite> suite = suites.get(suiteName, control);
@@ -79,6 +80,12 @@ public class SuitesCommand
             dao.delete(name);
         }
         dao.insert(suite.get().getQueries().stream()
+                .map(queryPair -> {
+                    if (createTableProperties.isEmpty()) {
+                        return queryPair;
+                    }
+                    return queryPair.preProcessSql(sql -> sql.replace("--WITH--", "WITH (" + createTableProperties + ")"));
+                })
                 .map(queryPair -> new VerifierQuery(
                         name,
                         queryPair.getId(),

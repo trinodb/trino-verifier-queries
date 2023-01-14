@@ -1,4 +1,5 @@
 CREATE TABLE q15
+--WITH--
 AS
 WITH revenue AS (
   SELECT

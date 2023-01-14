@@ -1,4 +1,5 @@
 CREATE TABLE q80
+--WITH--
 AS
 WITH
   ssr AS (

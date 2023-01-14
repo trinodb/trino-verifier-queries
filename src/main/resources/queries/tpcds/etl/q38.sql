@@ -1,4 +1,5 @@
 CREATE TABLE q38
+--WITH--
 AS
 SELECT DISTINCT
      "c_last_name"

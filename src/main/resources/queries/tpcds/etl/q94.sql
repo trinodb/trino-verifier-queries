@@ -1,4 +1,5 @@
 CREATE TABLE q94
+--WITH--
 AS
 SELECT
 "web_company_name"

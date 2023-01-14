@@ -1,4 +1,5 @@
 CREATE TABLE q8
+--WITH--
 AS
 SELECT
     extract(YEAR FROM o_orderdate)     AS o_year,

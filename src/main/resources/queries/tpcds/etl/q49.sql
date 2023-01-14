@@ -1,4 +1,5 @@
 CREATE TABLE q49
+--WITH--
 AS
 SELECT
   'web' "channel"

@@ -1,4 +1,5 @@
 CREATE TABLE q23_1
+--WITH--
 AS
 WITH
   frequent_ss_items AS (

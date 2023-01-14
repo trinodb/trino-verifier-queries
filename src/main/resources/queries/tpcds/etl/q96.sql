@@ -1,4 +1,5 @@
 CREATE TABLE q96
+--WITH--
 AS
 SELECT
 "t_hour"

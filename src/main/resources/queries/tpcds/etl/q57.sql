@@ -1,4 +1,5 @@
 CREATE TABLE q57
+--WITH--
 AS
 WITH
   v1 AS (

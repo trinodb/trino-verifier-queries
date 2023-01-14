@@ -1,4 +1,5 @@
 CREATE TABLE q22
+--WITH--
 AS
 SELECT
   cntrycode,

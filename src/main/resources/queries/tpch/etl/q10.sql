@@ -1,4 +1,5 @@
 CREATE TABLE q10
+--WITH--
 AS
 SELECT
   c_custkey,

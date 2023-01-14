@@ -1,4 +1,5 @@
 CREATE TABLE q97
+--WITH--
 AS
 WITH
   ssci AS (

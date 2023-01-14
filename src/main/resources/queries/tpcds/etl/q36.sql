@@ -1,4 +1,5 @@
 CREATE TABLE q36
+--WITH--
 AS
 SELECT
   ("sum"("ss_net_profit") / "sum"("ss_ext_sales_price")) "gross_margin"

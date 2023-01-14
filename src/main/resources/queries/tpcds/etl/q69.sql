@@ -1,4 +1,5 @@
 CREATE TABLE q69
+--WITH--
 AS
 SELECT
   "cd_gender"

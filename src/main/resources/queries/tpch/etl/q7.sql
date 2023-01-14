@@ -1,4 +1,5 @@
 CREATE TABLE q7
+--WITH--
 AS
 SELECT
     n1.n_name                          AS supp_nation,

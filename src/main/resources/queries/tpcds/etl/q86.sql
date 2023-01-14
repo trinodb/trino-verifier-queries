@@ -1,4 +1,5 @@
 CREATE TABLE q86
+--WITH--
 AS
 SELECT
   "sum"("ws_net_paid") "total_sum"

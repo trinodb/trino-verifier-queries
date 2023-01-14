@@ -1,4 +1,5 @@
 CREATE TABLE q35
+--WITH--
 AS
 SELECT
   "ca_state"

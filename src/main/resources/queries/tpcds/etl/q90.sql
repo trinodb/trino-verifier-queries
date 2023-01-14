@@ -1,4 +1,5 @@
 CREATE TABLE q90
+--WITH--
 AS
 SELECT
   CAST("amc" AS DECIMAL(15,4)) amc,

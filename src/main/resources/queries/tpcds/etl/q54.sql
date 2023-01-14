@@ -1,4 +1,5 @@
 CREATE TABLE q54
+--WITH--
 AS
 SELECT DISTINCT
      "c_customer_sk"

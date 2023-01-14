@@ -1,4 +1,5 @@
 CREATE TABLE q44
+--WITH--
 AS
 SELECT
   "asceding"."rnk"

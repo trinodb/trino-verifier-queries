@@ -1,4 +1,5 @@
 CREATE TABLE q22
+--WITH--
 AS
 SELECT
   "i_product_name"

@@ -1,4 +1,5 @@
 CREATE TABLE q14
+--WITH--
 AS
 SELECT
     l_quantity,
