@@ -24,6 +24,7 @@ import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
+import static com.google.common.base.Strings.isNullOrEmpty;
 import static com.google.common.base.Throwables.throwIfUnchecked;
 import static com.google.common.base.Verify.verify;
 import static com.google.common.collect.ImmutableList.toImmutableList;
@@ -31,6 +32,7 @@ import static com.google.common.util.concurrent.Futures.allAsList;
 import static com.google.common.util.concurrent.MoreExecutors.listeningDecorator;
 import static com.google.common.util.concurrent.Uninterruptibles.awaitTerminationUninterruptibly;
 import static io.airlift.concurrent.Threads.daemonThreadsNamed;
+import static io.airlift.json.JsonCodec.mapJsonCodec;
 import static java.lang.String.format;
 import static java.lang.String.join;
 import static java.util.Objects.requireNonNull;
@@ -78,9 +80,11 @@ public class SchemasCommand
             @Option(names = "--scale-factor", order = 6, defaultValue = "0.1") BigDecimal scaleFactor,
             @Option(names = "--threads", order = 7, defaultValue = "1") int threads,
             @Option(names = "--schema-type", required = true, order = 8, description = "Schema type. Valid values: ${COMPLETION-CANDIDATES}") SchemaType schemaType,
-            @Option(names = "--table-properties", order = 9, description = "Table properties", defaultValue = "") String tableProperties)
+            @Option(names = "--table-properties", order = 9, description = "Table properties", defaultValue = "") String tableProperties,
+            @Option(names = "--session-properties-json", order = 9, description = "Additional session properties json", defaultValue = "") String additionalSessionPropertiesJson)
     {
         init();
+        Map<String, String> additionalSessionProperties = parseSessionPropertiesJson(additionalSessionPropertiesJson);
         schemaType.checkTrinoConfiguration(spec, trinoClient);
         List<String> catalogs = trinoClient.selectSingleStringColumn("SHOW CATALOGS");
         if (!catalogs.contains(catalog)) {
@@ -106,7 +110,8 @@ public class SchemasCommand
                         bucketCount > 0 ? schemaType.getBucketingScheme().get(table) : Set.of(),
                         partitioned ? schemaType.getPartitioningScheme().get(table) : Set.of(),
                         bucketCount,
-                        tableProperties)))
+                        tableProperties,
+                        additionalSessionProperties)))
                 .map(MoreFutures::asVoid)
                 .collect(toImmutableList());
         ListenableFuture<List<Void>> future = allAsList(futures);
@@ -145,7 +150,8 @@ public class SchemasCommand
             Set<String> bucketingScheme,
             Set<String> partitioningScheme,
             int bucketCount,
-            String tableProperties)
+            String tableProperties,
+            Map<String, String> additionalSessionProperties)
     {
         List<String> tableColumns = getTableColumns(catalogFrom, schemaFrom, tableName);
         String bucketing = "";
@@ -191,6 +197,7 @@ public class SchemasCommand
             sessionProperties.put("use_preferred_write_partitioning", "true");
             sessionProperties.put("preferred_write_partitioning_min_number_of_partitions", "1");
         }
+        sessionProperties.putAll(additionalSessionProperties);
         try {
             trinoClient.executeUpdate(sql, sessionProperties.build());
         }
@@ -221,6 +228,14 @@ public class SchemasCommand
                 catalog,
                 schema,
                 table));
+    }
+
+    private static Map<String, String> parseSessionPropertiesJson(String sessionPropertiesJson)
+    {
+        if (isNullOrEmpty(sessionPropertiesJson)) {
+            return Map.of();
+        }
+        return mapJsonCodec(String.class, String.class).fromJson(sessionPropertiesJson);
     }
 
     private void init()
