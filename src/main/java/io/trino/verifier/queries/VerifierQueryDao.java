@@ -18,9 +18,11 @@ public interface VerifierQueryDao
             "test_catalog, " +
             "test_schema, " +
             "test_query, " +
+            "test_session_properties_json, " +
             "control_catalog, " +
             "control_schema, " +
-            "control_query " +
+            "control_query, " +
+            "control_session_properties_json " +
             ") " +
             "VALUES " +
             "( " +
@@ -29,9 +31,11 @@ public interface VerifierQueryDao
             ":testCatalog, " +
             ":testSchema, " +
             ":testQuery, " +
+            ":testSessionPropertiesJson, " +
             ":controlCatalog, " +
             ":controlSchema, " +
-            ":controlQuery " +
+            ":controlQuery, " +
+            ":controlSessionPropertiesJson " +
             ")")
     void insert(@BindBean List<VerifierQuery> queries);
 

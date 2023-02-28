@@ -2,8 +2,12 @@ package io.trino.verifier.queries;
 
 import com.google.common.collect.ImmutableList;
 import com.google.inject.Injector;
+import com.google.inject.Key;
 import com.google.inject.Module;
+import com.google.inject.TypeLiteral;
 import io.airlift.bootstrap.Bootstrap;
+import io.airlift.json.JsonCodec;
+import io.airlift.json.JsonModule;
 import picocli.CommandLine.Command;
 import picocli.CommandLine.ExecutionException;
 import picocli.CommandLine.Model.CommandSpec;
@@ -12,6 +16,7 @@ import picocli.CommandLine.ParameterException;
 import picocli.CommandLine.Spec;
 
 import java.io.File;
+import java.util.Map;
 import java.util.Optional;
 
 import static com.google.common.base.Throwables.throwIfUnchecked;
@@ -50,6 +55,7 @@ public class SuitesCommand
 
     private Suites suites;
     private VerifierQueryDao dao;
+    private JsonCodec<Map<String, String>> sessionPropertiesCodec;
 
     @Command
     public void list()
@@ -92,9 +98,11 @@ public class SuitesCommand
                         catalog,
                         schema,
                         queryPair.getTest().getSql(),
+                        serializeSessionProperties(sessionPropertiesCodec, queryPair.getTest().getSessionProperties()),
                         catalog,
                         schema,
-                        queryPair.getControl().getSql()))
+                        queryPair.getControl().getSql(),
+                        serializeSessionProperties(sessionPropertiesCodec, queryPair.getControl().getSessionProperties())))
                 .collect(toImmutableList()));
     }
 
@@ -106,6 +114,7 @@ public class SuitesCommand
         loadMysqlDriver();
 
         ImmutableList.Builder<Module> modules = ImmutableList.<Module>builder()
+                .add(new JsonModule())
                 .add(new SuitesModule());
 
         Bootstrap app = new Bootstrap(modules.build());
@@ -119,6 +128,7 @@ public class SuitesCommand
         }
         suites = injector.getInstance(Suites.class);
         dao = injector.getInstance(VerifierQueryDao.class);
+        sessionPropertiesCodec = injector.getInstance(Key.get(new TypeLiteral<>() {}));
     }
 
     private static void loadMysqlDriver()
@@ -129,5 +139,13 @@ public class SuitesCommand
         catch (ClassNotFoundException e) {
             throw new RuntimeException(e);
         }
+    }
+
+    private static Optional<String> serializeSessionProperties(JsonCodec<Map<String, String>> sessionPropertiesCodec, Map<String, String> properties)
+    {
+        if (properties.isEmpty()) {
+            return Optional.empty();
+        }
+        return Optional.of(sessionPropertiesCodec.toJson(properties));
     }
 }

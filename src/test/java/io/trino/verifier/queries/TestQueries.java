@@ -6,7 +6,10 @@ import org.testng.annotations.AfterClass;
 import org.testng.annotations.BeforeClass;
 import org.testng.annotations.Test;
 
+import java.util.Map;
+
 import static io.trino.sql.parser.ParsingOptions.DecimalLiteralTreatment.AS_DECIMAL;
+import static org.testng.Assert.assertEquals;
 
 public class TestQueries
 {
@@ -32,7 +35,11 @@ public class TestQueries
     {
         for (String queryId : queries.getAllIds()) {
             try {
-                parse(queries.get(queryId).orElseThrow().getSql());
+                Query query = queries.get(queryId).orElseThrow();
+                parse(query.getSql());
+                if (query.getId().equals("test/q1")) {
+                    assertEquals(query.getSessionProperties(), Map.of("testkey", "testvalue"));
+                }
             }
             catch (RuntimeException e) {
                 throw new AssertionError("Error parsing query: " + queryId, e);

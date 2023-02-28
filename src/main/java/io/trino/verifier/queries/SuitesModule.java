@@ -8,12 +8,15 @@ import org.jdbi.v3.sqlobject.SqlObjectPlugin;
 
 import java.sql.DriverManager;
 
+import static io.airlift.json.JsonCodecBinder.jsonCodecBinder;
+
 public class SuitesModule
         extends AbstractConfigurationAwareModule
 {
     @Override
     protected void setup(Binder binder)
     {
+        jsonCodecBinder(binder).bindMapJsonCodec(String.class, String.class);
         binder.bind(Queries.class).in(Scopes.SINGLETON);
         binder.bind(Suites.class).in(Scopes.SINGLETON);
         SuitesConfig config = buildConfigObject(SuitesConfig.class);
