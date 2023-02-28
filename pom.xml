@@ -42,6 +42,10 @@
 
     <dependencies>
         <dependency>
+            <groupId>com.fasterxml.jackson.core</groupId>
+            <artifactId>jackson-annotations</artifactId>
+        </dependency>
+        <dependency>
             <groupId>com.google.guava</groupId>
             <artifactId>guava</artifactId>
         </dependency>
@@ -83,6 +87,11 @@
             <version>${dep.airlift.version}</version>
         </dependency>
         <dependency>
+            <groupId>io.airlift</groupId>
+            <artifactId>units</artifactId>
+            <version>1.8</version>
+        </dependency>
+        <dependency>
             <groupId>io.trino</groupId>
             <artifactId>trino-parser</artifactId>
             <version>${dep.trino.version}</version>
@@ -110,7 +119,6 @@
         <dependency>
             <groupId>mysql</groupId>
             <artifactId>mysql-connector-java</artifactId>
-            <scope>runtime</scope>
             <version>8.0.22</version>
         </dependency>
         <dependency>
