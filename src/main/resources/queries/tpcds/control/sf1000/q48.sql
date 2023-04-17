@@ -1,0 +1,6 @@
+SELECT *
+FROM
+(
+  VALUES
+    (BIGINT '28283707')
+)
