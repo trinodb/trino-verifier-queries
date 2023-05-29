@@ -1,0 +1,6 @@
+SELECT *
+FROM
+(
+  VALUES
+    (DECIMAL '16.674227')
+)
