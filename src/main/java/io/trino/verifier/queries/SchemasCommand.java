@@ -191,12 +191,6 @@ public class SchemasCommand
                 + (partitioning.isEmpty() ? "" : format(" partitioned on %s", partitioning)));
         ImmutableMap.Builder<String, String> sessionProperties = ImmutableMap.builder();
         sessionProperties.putAll(schemaType.getSessionProperties());
-        if (!partitioningScheme.isEmpty() && config.isForceWritePartitioning()) {
-            // force write partitioning to overcome 100 partitions per writer restriction
-            // partitioning scheme is known to create ~2000 partitions for each table
-            sessionProperties.put("use_preferred_write_partitioning", "true");
-            sessionProperties.put("preferred_write_partitioning_min_number_of_partitions", "1");
-        }
         sessionProperties.putAll(additionalSessionProperties);
         try {
             trinoClient.executeUpdate(sql, sessionProperties.build());
